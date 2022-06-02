@@ -20,7 +20,7 @@ public class MovePlayerCard extends Card {
     public void applyAction(MainController mainController) {
         Player currentPlayer = mainController.getCurrentPlayer();
         Cell currentPosition = currentPlayer.getPosition();
-        int newCell = mainController.getGameBoard().queryCellIndex(destination);
+        int newCell = mainController.queryCellIndex(destination);
         int currentCell = mainController.getGameBoard().queryCellIndex(currentPosition.getName());
         int diceValue = 0;
         if (currentCell > newCell) {

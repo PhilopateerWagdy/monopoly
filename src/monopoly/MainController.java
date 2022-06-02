@@ -25,6 +25,10 @@ public class MainController {
         dice = new Dice(2);
     }
 
+    public int queryCellIndex(String destination){
+        return getGameBoard().queryCellIndex(destination);
+    }
+
     public void buttonBuyHouseClicked() {
         gui.showBuyHouseDialog(getCurrentPlayer());
     }

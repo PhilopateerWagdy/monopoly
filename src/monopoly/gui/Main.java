@@ -6,34 +6,46 @@ import monopoly.*;
 public class Main {
 
     private static final MainController MAIN_CONTROLLER = new MainController();
-    
-    private static int inputNumberOfPlayers(MainWindow window) {
-        int numPlayers = 0;
-        while(numPlayers < 2 || numPlayers > BoardController.MAX_PLAYER) {
-            String numberOfPlayers = JOptionPane.showInputDialog(
-                window, 
+
+    public static String getFromUserNumberOfPlayers(MainWindow window){
+        String numberOfPlayers = "";
+        numberOfPlayers = JOptionPane.showInputDialog(
+                window,
                 "How many players"
-            );
-            if (numberOfPlayers == null) {
-                System.exit(0);
-            }
-            try {
-                numPlayers = Integer.parseInt(numberOfPlayers);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(
-                    window, 
-                    "Please input a number"
-                );
-                continue;
-            }
-            if (numPlayers < 2 || numPlayers > BoardController.MAX_PLAYER) {
-                JOptionPane.showMessageDialog(
-                    window, 
+        );
+        if (numberOfPlayers == null) {
+            System.exit(0);
+        }
+        return numberOfPlayers;
+    }
+    public static void checkInputOfNumberOfPlayers(int numPlayers, MainWindow window) {
+        if (numPlayers < 2 || numPlayers > BoardController.MAX_PLAYER) {
+            JOptionPane.showMessageDialog(
+                    window,
                     "Please input a number between 2 and 8"
-                );
-            } else {
-                MAIN_CONTROLLER.setNumberOfPlayers(numPlayers);
-            }
+            );
+        } else {
+            MAIN_CONTROLLER.setNumberOfPlayers(numPlayers);
+        }
+    }
+    private static int parseInputOfNumberOfPlayers(int numPlayers, String numberOfPlayers, MainWindow window){
+        try {
+            numPlayers = Integer.parseInt(numberOfPlayers);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    window,
+                    "Please input a number"
+            );
+        }
+        return numPlayers;
+    }
+    public static int inputNumberOfPlayers(MainWindow window) {
+        String numberOfPlayers = "";
+        int numPlayers = 0;
+        while (numPlayers < 2 || numPlayers > BoardController.MAX_PLAYER) {
+            numberOfPlayers = getFromUserNumberOfPlayers(window);
+            numPlayers = parseInputOfNumberOfPlayers(numPlayers, numberOfPlayers, window);
+            checkInputOfNumberOfPlayers(numPlayers, window);
         }
         return numPlayers;
     }

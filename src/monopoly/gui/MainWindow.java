@@ -144,8 +144,8 @@ public class MainWindow extends JFrame implements MonopolyGUI {
     public void movePlayer(int index, int from, int to) {
         CellGUI fromCell = queryCell(from);
         CellGUI toCell = queryCell(to);
-        fromCell.removePlayer(index);
-        toCell.addPlayer(mainController, index);
+        fromCell.playerCellGUI.removePlayer(index);
+        toCell.playerCellGUI.addPlayer(mainController, index);
     }
 
     @Override
@@ -167,7 +167,7 @@ public class MainWindow extends JFrame implements MonopolyGUI {
     @Override
     public void removePlayer(int index, int from) {
         CellGUI cell = queryCell(from);
-        cell.removePlayer(index);
+        cell.playerCellGUI.removePlayer(index);
     }
     
     @Override

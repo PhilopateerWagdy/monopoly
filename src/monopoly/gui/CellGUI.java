@@ -15,7 +15,7 @@ public class CellGUI extends JPanel {
     private static final long serialVersionUID = 2752137388247147409L;
     private final Cell cell;
     private JLabel infoLabel;
-    private final JLabel[] playersLabel = new JLabel[BoardController.MAX_PLAYER];
+    PlayerCellGUI playerCellGUI = new PlayerCellGUI();
     
     public CellGUI(Cell cell) {
         this.cell = cell;
@@ -24,7 +24,7 @@ public class CellGUI extends JPanel {
         JPanel playerPanel = new JPanel();
         playerPanel.setLayout(new GridLayout(2, 4, 0, 25));
         playerPanel.setOpaque(false);
-        createPlayerLabels(playerPanel);
+        playerCellGUI.createPlayerLabels(playerPanel);
         super.add(playerPanel);
         super.setPreferredSize(new Dimension(100,100));
         addCellInfo();
@@ -40,20 +40,6 @@ public class CellGUI extends JPanel {
         infoPanel.add(infoLabel);
         add(infoPanel);
     }
-	
-    public void addPlayer(MainController mainController, int index) {
-        Player player = mainController.getPlayer(index);
-        playersLabel[index].setOpaque(true);
-        playersLabel[index].setBackground(player.getPlayerColor());
-    }
-
-    private void createPlayerLabels(JPanel playerPanel) {
-        for (int i = 0; i < BoardController.MAX_PLAYER; i++) {
-            playersLabel[i] = new JLabel();
-            playerPanel.add(playersLabel[i]);
-            
-        }
-    }
 
     public void displayInfo() {
         infoLabel.setText(InfoFormatter.cellInfo(cell));
@@ -66,9 +52,4 @@ public class CellGUI extends JPanel {
         return cell;
     }
 
-    public void removePlayer(int index) {
-        playersLabel[index].setText("");
-        playersLabel[index].setOpaque(false);
-        this.repaint();
-    }
 }
